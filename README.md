@@ -10,12 +10,12 @@
 1. Clone the repository locally
 2. Create a `.env` file and variable `OPENAI_API_KEY` to hold an API key from OpenAI, accesible here: https://platform.openai.com/
 3. Pre-requisites installed
-    a. Python 3
-    b. pip3 
-    c. uv CLI
-    d. Docker Desktop
-* Note: To run the application, the FastAPI backend, Qdrant container, inngest server, and frontend must be running to communicate
-4. Run the command to get dependencies: `uv add fastapi inngest llama-index-core llama-index-readers-file python-dotenv qdrant-client uvicorn streamlit openai langchain-text-splitters`
+- Python 3
+- pip3 
+- uv CLI
+- Docker Desktop
+* Note: To run the application, the FastAPI backend, Qdrant container, inngest server (optional), and frontend must be running to communicate
+4. Run the command to setup virtual environment `uv sync`
 5. Run the FastAPI server `uv run uvicorn main:app`
  (Also run inngest local dev server: `npx inngest-cli@latest dev -u http://127.0.0.1:8000/api/inngest`)
 6. Run the Qdrant Image (Docker must be running): `docker run -d --name qdrantRagDb -p 6333:6333 -v "$(pwd)/vector-storage:/qdrant/storage" qdrant/qdrant`
