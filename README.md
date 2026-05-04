@@ -17,6 +17,7 @@
 * Note: To run the application, the FastAPI backend, Qdrant container, inngest server, and frontend must be running to communicate
 4. Run the command to get dependencies: `uv add fastapi inngest llama-index-core llama-index-readers-file python-dotenv qdrant-client uvicorn streamlit openai langchain-text-splitters`
 5. Run the FastAPI server `uv run uvicorn main:app`
+ (Also run inngest local dev server: `npx inngest-cli@latest dev -u http://127.0.0.1:8000/api/inngest`)
 6. Run the Qdrant Image (Docker must be running): `docker run -d --name qdrantRagDb -p 6333:6333 -v "$(pwd)/vector-storage:/qdrant/storage" qdrant/qdrant`
 7. To view the inngest server UI, access the URL specified (default is http://localhost:8288/)
 8. To run the frontend application: `uv run streamlit run .\streamlit_app.py`
