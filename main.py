@@ -6,10 +6,9 @@ from inngest.experimental import ai
 from dotenv import load_dotenv
 import uuid
 import os
-import datetime
 from data_loader import load_then_chunk_pdf, embed_texts
 from vector_db import QdrantStorage
-from extra_types import RAGQueryResult, RAGSearchResult, RAGInsertResult, RAGChunkSource
+from extra_types import RAGSearchResult, RAGInsertResult, RAGChunkSource
 
 load_dotenv()
 
@@ -78,15 +77,15 @@ async def rag_query_doc_ai(ctx: inngest.Context):
 
     adapter = ai.openai.Adapter(
         auth_key=os.getenv("OPENAI_API_KEY"),
-        model="gpt-4o-mini"
+        model=os.getenv("RESPONSE_MODEL")
     )
 
     res = await ctx.step.ai.infer(
         "llm-answer",
         adapter=adapter,
         body={
-            "max_tokens": 1024,
-            "temperature": 0.2,
+            "max_tokens": int(os.getenv("MAX_TOKENS", "1024")),
+            "temperature": float(os.getenv("TEMPERATURE", "0.2")),
             "messages": [
                 {"role": "system", "content": "You answer questions based on provided context."},
                 {"role": "user", "content": user_content}

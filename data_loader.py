@@ -1,10 +1,9 @@
 from openai import OpenAI
 from llama_index.readers.file import PDFReader
-from llama_index.core.node_parser import SentenceSplitter
 from dotenv import load_dotenv
 import re
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-
+import os
 
 
 load_dotenv()
@@ -12,12 +11,12 @@ load_dotenv()
 client = OpenAI()
 
 reader = PDFReader()
-EMBED_MODEL = "text-embedding-3-large"
-EMBED_DIM = 3072
+EMBED_MODEL = os.getenv("EMBED_MODEL")
+EMBED_DIM = int(os.getenv("EMBED_DIM", "3072"))
 
 splitter = RecursiveCharacterTextSplitter(
-    chunk_size=500,
-    chunk_overlap=75
+    chunk_size=int(os.getenv("CHUNK_SIZE", "500")),
+    chunk_overlap=int(os.getenv("CHUNK_OVERLAP", "75"))
 )
 
 def clean_text(text: str) -> str:
